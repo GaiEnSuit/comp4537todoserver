@@ -1,0 +1,217 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "comp4537todo",
+        "summary": "API for managing todo app",
+        "description": "This API allows create, read, update, and delete operations for lists and tasks",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/lists": {
+            "get": {
+                "summary": "Gets all lists",
+                "description": "Retrieves all lists in the database.",
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved lists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": "integer",
+                                            "name": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Database Error: Unable to retrieve lists"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Creates a new list",
+                "description": "Inserts a new empty list into the database.",
+                "responses": {
+                    "200": {
+                        "description": "Successfully inserted new list"
+                    },
+                    "500": {
+                        "description": "Database Error: Unable to insert new list"
+                    }
+                }
+            }
+        },
+        "/lists/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "query",
+                    "description": "ID for the specific list.",
+                    "required": true
+                }
+            ],
+            "put": {
+                "summary": "Updates existing list",
+                "description": "Updates the existing list",
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated list"
+                    },
+                    "500": {
+                        "description": "Database Error: Unable to update list"
+                    }
+                },
+                "requestBody": {
+                    "description": "List data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "Name of the specified list"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletes a list.",
+                "description": "Deletes a specified list",
+                "responses": {
+                    "200": {
+                        "description": "Successfully deleted list"
+                    },
+                    "500": {
+                        "description": "Database Error: Unable to delete list"
+                    }
+                }
+            }
+        },
+        "/tasks/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "query",
+                    "description": "list id to fetch tasks from",
+                    "required": true
+                }
+            ],
+            "get": {
+                "summary": "Retrieves tasks",
+                "description": "Retrieves tasks of a specified list",
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved tasks",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": "integer",
+                                            "list_id": "integer",
+                                            "name": "string",
+                                            "description": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Database Error: Unable to retrieve lists"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Creates new tasks",
+                "description": "Inserts a new task into the specified list",
+                "responses": {
+                    "200": {
+                        "description": "Task successfully created"
+                    },
+                    "500": {
+                        "description": "Database Error: Unable to create task"
+                    }
+                },
+                "requestBody": {
+                    "description": "Creates a new task using list id",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": "integer"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Updates tasks",
+                "description": "Updates specified task",
+                "responses": {
+                    "200": {
+                        "description": "Successfully updated task"
+                    },
+                    "500": {
+                        "description": "Database Error: Unable to udpate task"
+                    }
+                },
+                "requestBody": {
+                    "description": "Updates task using task id as index",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": "id",
+                                    "name": "string",
+                                    "description": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletes tasks",
+                "description": "Deletes a task from a specified list",
+                "responses": {
+                    "200": {
+                        "description": "Task deleted successfully"
+                    },
+                    "500": {
+                        "description": "Database Error: Unable to delete task"
+                    }
+                },
+                "requestBody": {
+                    "description": "Deletes task using task id as index",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "integer",
+                                "properties": {
+                                    "id": "integer"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
