@@ -4,21 +4,11 @@
 
 const express = require("express");
 const path = require("path");
-const cors = require("cors");
-const dbconnection = required("./database.js");
 const fs = require("fs");
-// const passport = require("./passport.js");
-
+const dbconnection = required("./database.js");
 const app = express();
 const APIEndpoint = "/API/v1";
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-// TODO: Implement Token Authentication middleware
-
-// Route handling
 app.get("/", (req, res, next) => {
     let filePath = path.join(__dirname, "openapi.json");
     let file = fs.readFileSync(filePath);
