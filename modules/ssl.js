@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const credentials = null;
+let credentials = null;
 
 /**
  * SSL Credentials
