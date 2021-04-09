@@ -5,19 +5,19 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-const dbconnection = required("./database.js");
+const dbconnection = require("./database.js");
 const app = express();
 const APIEndpoint = "/API/v1";
 
-app.get("/", (req, res, next) => {
-    let filePath = path.join(__dirname, "openapi.json");
+app.get(APIEndpoint + "/", (req, res, next) => {
+    let filePath = path.join(__dirname, "../openapi.json");
     let file = fs.readFileSync(filePath);
     let parsedFile = JSON.parse(file);
     res.send(parsedFile);
     res.end();
 });
 
-app.get("/lists", (req, res, next) => {
+app.get(APIEndpoint + "/lists", (req, res, next) => {
     dbconnection.query(`SELECT * FROM lists`, (error, result) => {
         if (error) {
             next(error.message);
