@@ -9,7 +9,7 @@ const dbconnection = require("./database.js");
 const app = express();
 const APIEndpoint = "/API/v1";
 
-app.get(APIEndpoint + "/", (req, res, next) => {
+app.get(APIEndpoint + "/docs", (req, res, next) => {
     let filePath = path.join(__dirname, "../openapi.json");
     let file = fs.readFileSync(filePath);
     let parsedFile = JSON.parse(file);
