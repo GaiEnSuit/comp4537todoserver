@@ -180,9 +180,7 @@ app.delete(
 );
 
 app.get("/", (req, res, next) => {
-    res.sendFile(
-        path.join(__dirname, "/../comp4537todoclient/web-build/index.html")
-    );
+    res.sendFile(path.join(__dirname, process.env.CLIENT_PATH));
 });
 
 module.exports = app;
