@@ -13,9 +13,9 @@ const cors = require("cors");
 /**
  * Middleware Configuration
  */
- app.use(cors());
- app.use(express.json());
- app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.post(APIEndpoint + "/auth", (req, res, next) => {
     try {
@@ -64,26 +64,22 @@ app.post(APIEndpoint + "/list", auth.authenticateToken, (req, res, next) => {
     );
 });
 
-app.put(
-    APIEndpoint + "/list/:id",
-    auth.authenticateToken,
-    (req, res, next) => {
-        let id = req.params.id;
-        let name = req.body.name;
+app.put(APIEndpoint + "/list/:id", auth.authenticateToken, (req, res, next) => {
+    let id = req.params.id;
+    let name = req.body.name;
 
-        dbconnection.query(
-            `UPDATE lists SET name="${name}" WHERE id=${id}`,
-            (error, result) => {
-                if (error) {
-                    next(error.message);
-                } else {
-                    res.send(JSON.stringify(result));
-                    res.end();
-                }
+    dbconnection.query(
+        `UPDATE lists SET name="${name}" WHERE id=${id}`,
+        (error, result) => {
+            if (error) {
+                next(error.message);
+            } else {
+                res.send(JSON.stringify(result));
+                res.end();
             }
-        );
-    }
-);
+        }
+    );
+});
 
 app.delete(
     APIEndpoint + "/list/:id",
@@ -129,7 +125,7 @@ app.post(
     auth.authenticateToken,
     (req, res, next) => {
         let listID = req.params.list_id;
-        console.log(listID)
+        console.log(listID);
 
         dbconnection.query(
             `INSERT INTO tasks(list_id) VALUES(${listID})`,
@@ -145,27 +141,23 @@ app.post(
     }
 );
 
-app.put(
-    APIEndpoint + "/task/:id",
-    auth.authenticateToken,
-    (req, res, next) => {
-        let id = req.params.id;
-        let name = req.body.name;
-        let description = req.body.description;
+app.put(APIEndpoint + "/task/:id", auth.authenticateToken, (req, res, next) => {
+    let id = req.params.id;
+    let name = req.body.name;
+    let description = req.body.description;
 
-        dbconnection.query(
-            `UPDATE tasks SET name="${name}", description="${description}" WHERE id=${id}`,
-            (error, result) => {
-                if (error) {
-                    next(error.message);
-                } else {
-                    res.send(JSON.stringify(result));
-                    res.end();
-                }
+    dbconnection.query(
+        `UPDATE tasks SET name="${name}", description="${description}" WHERE id=${id}`,
+        (error, result) => {
+            if (error) {
+                next(error.message);
+            } else {
+                res.send(JSON.stringify(result));
+                res.end();
             }
-        );
-    }
-);
+        }
+    );
+});
 
 app.delete(
     APIEndpoint + "/task/:id",
@@ -186,5 +178,11 @@ app.delete(
         );
     }
 );
+
+app.get("/", (req, res, next) => {
+    res.sendFile(
+        path.join(__dirname, "/../comp4537todoclient/web-build/index.html")
+    );
+});
 
 module.exports = app;
