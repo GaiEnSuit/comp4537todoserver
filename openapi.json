@@ -8,7 +8,7 @@
     },
     "paths": {
         "/lists": {
-            "get": {
+            "post": {
                 "summary": "Gets all lists",
                 "description": "Retrieves all lists in the database.",
                 "responses": {
@@ -33,7 +33,9 @@
                         "description": "Database Error: Unable to retrieve lists"
                     }
                 }
-            },
+            }
+        },
+        "/list": {
             "post": {
                 "summary": "Creates a new list",
                 "description": "Inserts a new empty list into the database.",
@@ -47,7 +49,7 @@
                 }
             }
         },
-        "/lists/{id}": {
+        "/list/{id}": {
             "parameters": [
                 {
                     "name": "id",
@@ -98,16 +100,16 @@
                 }
             }
         },
-        "/tasks/{id}": {
+        "/tasks/{list_id}": {
             "parameters": [
                 {
-                    "name": "id",
+                    "name": "list_id",
                     "in": "query",
                     "description": "list id to fetch tasks from",
                     "required": true
                 }
             ],
-            "get": {
+            "post": {
                 "summary": "Retrieves tasks",
                 "description": "Retrieves tasks of a specified list",
                 "responses": {
@@ -134,7 +136,17 @@
                         "description": "Database Error: Unable to retrieve lists"
                     }
                 }
-            },
+            }
+        },
+        "/task/{list_id}": {
+            "parameters": [
+                {
+                    "name": "list_id",
+                    "in": "query",
+                    "description": "List id to insert task into",
+                    "required": true
+                }
+            ],
             "post": {
                 "summary": "Creates new tasks",
                 "description": "Inserts a new task into the specified list",
@@ -159,7 +171,17 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/task/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "query",
+                    "description": "The task id",
+                    "required": true
+                }
+            ],
             "put": {
                 "summary": "Updates tasks",
                 "description": "Updates specified task",
