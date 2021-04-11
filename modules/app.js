@@ -180,7 +180,7 @@ app.delete(
 );
 
 app.get("/", (req, res, next) => {
-    res.sendFile(path.join(__dirname, process.env.CLIENT_PATH));
+    res.sendFile(process.env.CLIENT_PATH);
 });
 
 module.exports = app;
