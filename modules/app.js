@@ -16,6 +16,7 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, process.env.CLIENT_STATIC_FOLDER)));
 
 app.post(APIEndpoint + "/auth", (req, res, next) => {
     try {
