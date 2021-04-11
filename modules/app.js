@@ -179,7 +179,7 @@ app.delete(
     }
 );
 
-app.get("/app", (req, res, next) => {
+app.get("*", (req, res, next) => {
     res.sendFile(path.join(__dirname, process.env.CLIENT_PATH));
 });
 
